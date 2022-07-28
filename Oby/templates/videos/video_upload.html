@@ -1,0 +1,14 @@
+{% extends 'base.html'%} 
+{% block title %}This is where you can upload your videos{% endblock %} 
+{% block content %}
+<h2>Video Upload Page</h2>
+<div>
+    <a href = "{% url 'home screen' %}" > Go Back</a>
+	<form method="POST" action="">
+		{% csrf_token %}
+			{{form.as_p}}
+		<input type="submit" value="Submit">
+							
+	</form>
+</div>
+{% endblock %}

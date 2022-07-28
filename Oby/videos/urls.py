@@ -4,5 +4,6 @@ from .views import videoView , videoUpload
 
 urlpatterns = [
     path('',videoView.as_view(), name='home screen'),
-    path('', videoUpload.as_view(), name='video upload screen')
+    path('home/',videoView.as_view(), name='home screen'),
+    path('upload-video/', videoUpload.as_view(), name='video upload screen')
 ]
