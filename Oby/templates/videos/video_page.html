@@ -1,0 +1,11 @@
+{% extends 'base.html'%} 
+{% block title %}This is where you'll watch the video{% endblock %} 
+{% block content %}
+
+<h1>{{video.video_title}}</h1>
+<div class="embed-responsive embed-responsive-16by9"> 
+    <iframe width="560" height="315" src="{{video.video.url}}" 
+frameborder="0" allowfullscreen></iframe>
+</div> 
+<h3>{{video.video_description}}</h3>
+{% endblock %}
