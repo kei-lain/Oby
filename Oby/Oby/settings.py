@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'videos',
     'accounts',
+    'django_filters',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

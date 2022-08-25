@@ -38,7 +38,7 @@ class videoUpload(LoginRequiredMixin,CreateView):
     model = Videos
     fields = '__all__'
     template_name = 'videos/video_upload.html'
-    success_url = reverse_lazy('')
+    success_url = reverse_lazy('home screen')
 
 class WatchPage(DetailView):
     model = Videos

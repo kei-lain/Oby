@@ -11,6 +11,7 @@ class Videos(models.Model):
     date_uploaded = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     
+    
 
     def get_queryset(self):
         return(super(Videos, self).get_queryset())
