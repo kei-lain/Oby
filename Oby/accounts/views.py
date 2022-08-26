@@ -30,11 +30,18 @@ class customRegistrationView(CreateView):
 
 class profileView(DetailView):
     template_name = 'account/profile.html'
-    model = User
-    fields = '__all__'
+    # model = User
+    # fields = '__all__'
     redirected_authenticated_user = True
     reverse_lazy =('/login')
     success_url = '/login'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["user"] = User
+        context["videos"] = Videos.objects.filter(user=self.request.user)
+        return context
+    
     
     
 
