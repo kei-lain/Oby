@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import FileExtensionValidator
+from django.conf import settings
 
 # Create your models here.
 class Categories(models.Model):
@@ -9,14 +10,13 @@ class Categories(models.Model):
         return self.category_name
 
 class Videos(models.Model):
-    video = models.FileField(upload_to='media/videos/%Y/%m/%d/', 
-    )
     video_title = models.CharField(max_length=500, blank = False, null = False , help_text= 'Please Enter a video title')
     video_description = models.CharField(max_length= 2000,help_text='Please put the video description here')
     date_uploaded = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    uploaded_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    video = models.FileField(upload_to=f'media/videos/{uploaded_by}/%Y/%m/%d/' )
     category = models.ForeignKey(Categories, on_delete=models.CASCADE)
-    
+    private = models.BooleanField(default=False)
     
 
     def get_queryset(self):

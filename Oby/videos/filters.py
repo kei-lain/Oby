@@ -5,5 +5,6 @@ from .models import Videos
 class VideoFilter(django_filters.FilterSet):
     class Meta:
         model = Videos
-        fields = ['user']
+        fields = ['uploaded_by', 'private','uploaded_by']
+
     

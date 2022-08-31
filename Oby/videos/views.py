@@ -3,33 +3,21 @@ from django.views.generic.list import ListView
 from django.urls import  reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
-
+from .filters import VideoFilter
 from django.contrib.auth.mixins import LoginRequiredMixin, AccessMixin, PermissionRequiredMixin
-from .models import Videos
-from .forms import VideoUpload
+from .models import Videos, Categories
+from .forms import VideoUpload 
 
 # Create your views here.
 class videoView(ListView):
     model = Videos
-    context_object_name =  'videos'
     template_name = 'videos/videowall.html'
-
-        
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["videos"] = Videos.objects.filter(private=False)
+        return context
     
 
-    # def get_queryset(self, *args, **kwargs):
-    #     qs = Videos.objects.all()
-    #     print(self.request.GET)
-    #     query = self.request.GET.get("q", None)
-    #     if query is not None:
-    #         qs = qs.filter(
-    #              Q(video_description__icontains=query) | Q(video__icontains=query)
-    #         )
-    #     return qs
-    
-    # def get_context_data(self, *args,**kwargs):
-    #     context = super( videoView, self).get_context_data(*args, **kwargs)
-    #     return context
     
     
 
@@ -39,10 +27,29 @@ class videoUpload(LoginRequiredMixin,CreateView):
     fields = '__all__'
     template_name = 'videos/video_upload.html'
     success_url = reverse_lazy('home screen')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["category"] = Categories.objects.all() 
+        return context
+    
+
+class CategoryCreation(LoginRequiredMixin, CreateView):
+    model = Categories
+    fields = '__all__'
+    template = 'videos/category_creation.html'
 
 class WatchPage(DetailView):
     model = Videos
     context_object_name = 'video'
     template_name = 'videos/video_page.html'
+
+class creatorDashboard(DetailView):
+    template_name = 'videos/public_creator_page.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["videos"] = Videos.objects.filter(uploaded_by=request.user)
+        context["user"] = User.objects.filter(request.user)
+        return context
+    
    
     

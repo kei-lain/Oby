@@ -4,7 +4,7 @@
 <h1>Welcome to the Video Wall!</h1>
 <div class="container">
     {% for video in videos %}
-    <h3 class="text-center mt-2 mb-2"><a href = "{% url 'video' video.id%}"> {{video.video_title}}</a></h3>
+    <h3 class="text-center mt-2 mb-2"><a href = "{% url 'video' video.id%}"> {{video.video_title}}</a><a></h3>
     <video class="video-fluid">
         <source src="{{video.video.url}}" type="video/mp4" />
     </video>

@@ -1,4 +1,5 @@
-{% extends 'base.html'%} 
+{% extends 'base.html' %} 
+
 {% block title %}This is where you can upload your videos{% endblock %} 
 {% block content %}
 <h2>Video Upload Page</h2>
@@ -7,6 +8,11 @@
 	<form enctype="multipart/form-data" method="POST" action="">
 		{% csrf_token %}
 		{{form.as_p}}
+		<div>
+			<form enctype="multipart/form-data" method="POST" action="">
+				{% csrf_token %}
+				{{category.as_p}}
+		</div>
 		<input type="submit" value="Submit">
 	</form>
 	
